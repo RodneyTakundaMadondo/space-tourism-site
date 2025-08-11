@@ -1,53 +1,30 @@
-import Home from './Components/Home'
-import Header from './Components/Header';
-import Destination from './Components/destination'
-import Crew from './Components/crew';
-import Technology from './Components/technology'
-import {useState} from 'react'
-export default function App(){
-    const [currentPage,setCurrentPage] = useState("home");
-  
-      
-         function renderPage(){
-          switch(currentPage){
-            case "home":
-                return <Home setCurrentPage={setCurrentPage}/>;
-             
-            case "destination":
-                return <Destination/>;
-            
-            case "crew":
-                return <Crew/>;
+import Home from './Pages/Home'
 
-            case "technology":
-                return <Technology/>;
-            default:
-                return <Home/>;
-        }
-         }
+import Destination from './Pages/destination'
+import Crew from './Pages/crew';
+import Technology from './Pages/technology'
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './Components/Layout';
+export default function App() {
+ 
+  return (
+    <>
       
-         function changeBackGround(){
-          switch(currentPage){
-            case "home":
-              return "home-main-container";
-            case "destination":
-              return "destination-main-container";
-            case "crew":
-              return "crew-main-container";
-            case "technology":
-              return "technology-main-container";
-              default:
-                return "";
-              
-          }
-         }
-    return(
-      <>
-     <div className={`min-h-screen bg-black ${changeBackGround()} space-y-12 `}>
-     <Header setCurrentPage={setCurrentPage} currentPage={currentPage}/>
-      { renderPage()}
-     </div>
-     
-      </>
-    )
+        {/* <Header setCurrentPage={setCurrentPage} currentPage={currentPage}/> */}
+        {/* { renderPage()} */}
+        <BrowserRouter basename="/space-tourism-site">
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/destination" element={<Destination />} />
+              <Route path="/crew" element={<Crew />} />
+              <Route path="/technology" element={<Technology />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      
+
+    </>
+  )
 }

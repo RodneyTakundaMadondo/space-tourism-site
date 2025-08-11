@@ -3,11 +3,12 @@ import homeLogo from '/assets/shared/logo.svg'
 import menu from '/assets/shared/icon-hamburger.svg';
 import cross from '/assets/shared/icon-close.svg';
 import { useState } from 'react';
+import { Link, useLocation } from "react-router-dom"
 
 
-export default function Header(props) {
+export default function Header() {
     const [openNav, setOpenNav] = useState(false);
-
+    const location = useLocation();
 
     function toggleSideNav() {
         setOpenNav(prev => !prev);
@@ -15,17 +16,17 @@ export default function Header(props) {
 
 
     return (
-        <header className='min-w-[200px] lg:pt-8 '>
+        <header className='min-w-[200px] lg:pt-8  '>
             <nav className='flex justify-between items-center px-4 pt-8 md:px-0 md:pt-0 md:pl-4 '>
                 <div className='md:w-full md:max-w-[15rem] flex justify-center  '>
 
-                    <a href="#">
+                    <Link to="/">
                         <img className='w-[2.5rem] sm:w-[3rem] md:w-[3.5rem]' src={homeLogo} alt="Home" />
-                    </a>
+                    </Link>
 
                 </div>
                 <div>
-                    <button className='md:hidden hover:cursor-pointer' onClick={toggleSideNav}>
+                    <button className='md:hidden hover:cursor-pointer' onClick={() => { setOpenNav(prev => !prev) }}>
                         <img src={menu} alt="Menu" />
                     </button>
                 </div>
@@ -39,53 +40,45 @@ export default function Header(props) {
                         </button>
                     </div>
                     <ul className=' mt-16 pl-4 text-white flex flex-col gap-6 md:flex-row md:gap-6 md:mt-0 lg:gap-12  '>
-                        <li className={`relative nav-link-btns lg:py-8  ${props.currentPage === "home" ? "active" : ""}`}>
-                            <button
+                        <li className={`relative nav-link-btns lg:py-8  ${location.pathname === "/" ? "active" : ""}`}>
+                            <Link
+                                to="/"
                                 className={`inline`}
-                                onClick={() => {
-                                    props.setCurrentPage("home");
-                                    toggleSideNav();
-                                }}
+                                onClick={toggleSideNav}
                             >
                                 <span className='mr-4 md:mr-3 md:hidden lg:inline  font-bold'>00</span>
                                 <span className='uppercase tracking-[2px] page-destination'>Home</span>
-                            </button>
+                            </Link>
                         </li>
-                        <li className={`relative nav-link-btns lg:py-8  ${props.currentPage === "destination" ? "active" : ""}`}>
-                            <button
+                        <li className={`relative nav-link-btns lg:py-8  ${location.pathname === "/destination" ? "active" : ""}`}>
+                            <Link
+                                to="/destination"
                                 className={`inline`}
-                                onClick={() => {
-                                    props.setCurrentPage("destination");
-                                    toggleSideNav();
-                                }}
+                                onClick={toggleSideNav}
                             >
                                 <span className='mr-4 md:mr-3  font-bold'>01</span>
                                 <span className='uppercase tracking-[2px] page-destination'>destination</span>
-                            </button>
+                            </Link>
                         </li>
-                        <li className={`relative nav-link-btns lg:py-8  ${props.currentPage === "crew" ? "active" : ""}`}>
-                            <button
+                        <li className={`relative nav-link-btns lg:py-8  ${location.pathname === "/crew" ? "active" : ""}`}>
+                            <Link
+                                to="/crew"
                                 className={`inline`}
-                                onClick={() => {
-                                    props.setCurrentPage("crew");
-                                    toggleSideNav();
-                                }}
+                                onClick={toggleSideNav}
                             >
                                 <span className='mr-4 md:mr-3  font-bold'>02</span>
                                 <span className='uppercase tracking-[2px] page-destination'>crew</span>
-                            </button>
+                            </Link>
                         </li>
-                        <li className={`relative nav-link-btns lg:py-8  ${props.currentPage === "technology" ? "active" : ""}`}>
-                            <button
+                        <li className={`relative nav-link-btns lg:py-8  ${location.pathname === "/technology" ? "active" : ""}`}>
+                            <Link
+                                to="/technology"
                                 className={`inline`}
-                                onClick={() => {
-                                    props.setCurrentPage("technology");
-                                    toggleSideNav();
-                                }}
+                                onClick={toggleSideNav}
                             >
                                 <span className='mr-4 md:mr-3  font-bold'>03</span>
                                 <span className='uppercase tracking-[2px] page-destination'>technology</span>
-                            </button>
+                            </Link>
                         </li>
                     </ul>
                 </div>
